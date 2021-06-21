@@ -13,7 +13,7 @@ fun main(args: Array<String>) {
 
     println("////////////// Multi thread execution //////////////")
     startTime = Instant.now()
-    syncFunctionWithDefaultDispatcher(sleepTimeList)
+    syncFunctionWithIODispatcher(sleepTimeList)
     println("Done executing in multi thread. Time spent: ${getTimeSince(startTime)} seconds")
 
     println("////////////// Single thread execution //////////////")
@@ -25,7 +25,7 @@ fun main(args: Array<String>) {
 // Default dispatchers has many threads, so each operation can execute concurrently.
 // If the number of threads in the IO dispatcher >= 3 then the maximum time spent here will be 3 seconds.
 // Take into account that IO dispatchers creates threads if necessary
-fun syncFunctionWithDefaultDispatcher(sleepTimeList: List<Long>): String {
+fun syncFunctionWithIODispatcher(sleepTimeList: List<Long>): String {
     runBlocking(Dispatchers.IO) {
         sleepTimeList.forEach { sleepTime ->
             // You can use launch instead of async too
