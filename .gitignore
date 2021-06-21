@@ -1,0 +1,10 @@
+.idea/
+*.iml
+target/
+.env
+.build/
+
+*.class
+
+# Don't commit .gitattributes due to jenkins limitation
+.gitattributes
