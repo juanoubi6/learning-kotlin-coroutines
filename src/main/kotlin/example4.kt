@@ -25,7 +25,7 @@ fun main(args: Array<String>) {
 // Default dispatchers has many threads, so each operation can execute concurrently.
 // If the number of threads in the IO dispatcher >= 3 then the maximum time spent here will be 3 seconds.
 // Take into account that IO dispatchers creates threads if necessary
-fun syncFunctionWithIODispatcher(sleepTimeList: List<Long>): String {
+fun syncFunctionWithIODispatcher(sleepTimeList: List<Long>) {
     runBlocking(Dispatchers.IO) {
         sleepTimeList.forEach { sleepTime ->
             // You can use launch instead of async too
@@ -38,11 +38,11 @@ fun syncFunctionWithIODispatcher(sleepTimeList: List<Long>): String {
         }
     }
 
-    return "Finished"
+    println("Finished syncFunctionWithIODispatcher")
 }
 
 // There is only 1 thread, so each operation will execute sequentially
-fun syncFunctionWithSingleThread(sleepTimeList: List<Long>): String {
+fun syncFunctionWithSingleThread(sleepTimeList: List<Long>) {
     runBlocking(Executors.newSingleThreadExecutor().asCoroutineDispatcher()) {
         sleepTimeList.forEach { sleepTime ->
             launch {
@@ -53,7 +53,7 @@ fun syncFunctionWithSingleThread(sleepTimeList: List<Long>): String {
         }
     }
 
-    return "Finished"
+    println("Finished syncFunctionWithSingleThread")
 }
 
 
