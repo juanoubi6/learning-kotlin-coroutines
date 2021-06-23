@@ -39,7 +39,7 @@ object FilmsV2 : Table() {
 
 suspend fun nonBlockingFunctionV2(number: Int):String{
     println("Started non blocking function $number")
-    val result = blockingRepositoryV2(number).attempt().suspended().map {
+    val result = nonBlockingRepositoryV2(number).attempt().suspended().map {
         "${it.size}"
     }.getOrHandle {
         "error"
@@ -49,7 +49,7 @@ suspend fun nonBlockingFunctionV2(number: Int):String{
     return result
 }
 
-fun blockingRepositoryV2(number: Int): IO<List<String>> {
+fun nonBlockingRepositoryV2(number: Int): IO<List<String>> {
     println("Started blocking repository $number")
 
     val result: IO<List<String>> = dbResultOfV2(exposedDatabaseV2) {

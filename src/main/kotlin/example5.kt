@@ -37,13 +37,13 @@ object Films : Table() {
 
 suspend fun nonBlockingFunction(number: Int): String {
     println("Started non blocking function $number")
-    val result = blockingRepository(number)
+    val result = nonBlockingRepository(number)
     println("Finished non blocking function $number")
 
     return "${result.size}"
 }
 
-suspend fun blockingRepository(number: Int): List<String> {
+suspend fun nonBlockingRepository(number: Int): List<String> {
     println("Started blocking repository $number")
 
     val result = dbResultOf(exposedDatabase) {
