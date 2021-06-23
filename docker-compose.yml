@@ -1,0 +1,12 @@
+version: '3'
+
+services:
+  kotlin-examples-db:
+    image: 'postgres:10-alpine'
+    container_name: 'kotlin-examples-db'
+    ports:
+      - '5432:5432'
+    environment:
+      - POSTGRES_PASSWORD=s3cr3t4
+      - POSTGRES_USER=postgres
+      - POSTGRES_DB=kotlin-examples-db
