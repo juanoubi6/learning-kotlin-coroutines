@@ -6,7 +6,7 @@ import kotlinx.coroutines.runBlocking
 import java.time.Instant
 import java.util.concurrent.Executors
 
-// Multi thread execution should spent less time executing.
+// Multi thread execution should spend less time executing.
 fun main(args: Array<String>) {
     val sleepTimeList = listOf<Long>(3000, 3000, 3000)
     lateinit var startTime: Instant
@@ -14,11 +14,15 @@ fun main(args: Array<String>) {
     println("////////////// Multi thread execution //////////////")
     startTime = Instant.now()
     syncFunctionWithIODispatcher(sleepTimeList)
+
+    // Expected 3 seconds
     println("Done executing in multi thread. Time spent: ${getTimeSince(startTime)} seconds")
 
     println("////////////// Single thread execution //////////////")
     startTime = Instant.now()
     syncFunctionWithSingleThread(sleepTimeList)
+
+    // Expected 9 seconds
     println("Done executing in single thread. Time spent: ${getTimeSince(startTime)} seconds")
 }
 
@@ -26,6 +30,8 @@ fun main(args: Array<String>) {
 // If the number of threads in the IO dispatcher >= 3 then the maximum time spent here will be 3 seconds.
 // Take into account that IO dispatchers creates threads if necessary
 fun syncFunctionWithIODispatcher(sleepTimeList: List<Long>) {
+
+    //RunBlocking waits until all coroutines fired inside it finish
     runBlocking(Dispatchers.IO) {
         sleepTimeList.forEach { sleepTime ->
             // You can use launch instead of async too
