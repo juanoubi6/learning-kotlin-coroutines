@@ -26,9 +26,9 @@ suspend fun blockingIOWithSuspendFunction(number: String): String {
 
 suspend fun nonBlockingIOUsingDispatcher(number: String): String {
     withContext(Dispatchers.IO) {
-        println("Started non blocking IO $number")
+        println("Started blocking IO $number")
         Thread.sleep(5000)
-        println("Finished non blocking IO $number")
+        println("Finished blocking IO $number")
     }
 
     return "Done non blocking IO"
